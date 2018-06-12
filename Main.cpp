@@ -759,7 +759,6 @@ void __fastcall TfrmMain::mnuEnterCatalogClick(TObject *Sender)
 	String catalog = grd->Cells[grd->ColCount-2][ARow];
 	if(catalog=="")
 		return;
-	ShowMessage(catalog);
 
 	// 创建新进程
 	String newCd = IncludeTrailingBackslash(IncludeTrailingBackslash(GetCurrentDir()) + catalog);
