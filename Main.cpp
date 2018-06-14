@@ -292,14 +292,14 @@ void __fastcall TfrmMain::grdRecognizedDrawCell(TObject *Sender, int ACol, int A
     TStringGrid* grd = (TStringGrid*)Sender;
 
     // 是表头则退出
-    if(ARow==-1 || ACol==-1 || ARow==0 || ACol==0)
+    if(ARow==-1 || ACol==-1 || ARow==0)
 		return;
 
     // 左侧显示图标再退出
     if(ACol==0)
     {
-    	if(grd->Cells[grd->ColCount-1][ARow]=="")
-        	return;
+		if(grd->Cells[grd->ColCount-1][ARow]=="")
+			return;
 
 		TSHFileInfo fi = {};
         DWORD r = SHGetFileInfo(grd->Cells[grd->ColCount-1][ARow].c_str(), NULL, &fi, sizeof(TSHFileInfo), SHGFI_ICON | SHGFI_SMALLICON);
@@ -508,7 +508,7 @@ void __fastcall TfrmMain::mnuCopyBibFromBaiduClick(TObject *Sender)
     	assert(false);
 
     if(grd != grdRecognized)
-    	return;
+		return;
 
     // 点中表头或左侧退出
     TPoint mouse = mnuPopup->PopupPoint;;
