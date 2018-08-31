@@ -529,8 +529,13 @@ void __fastcall TfrmMain::mnuCopyBibFromBaiduClick(TObject *Sender)
 	String html = getHtml(url);
 
 	// 解析
-	String dataLink = getStringBetween(html, "<a class=\"sc_q\" href=\"javascript:;\" data-link=\"", "\" data-sign=\"");
-	String dataSign = getStringBetween(html, "<a class=\"sc_q\" href=\"javascript:;\" data-link=\""+dataLink+"\" data-sign=\"", "\" data-click=\"{'button_tp':'cite'}\">");
+	// 信息不完整时 会出现没有引用按钮 只有批量引用按钮 因此从share上抓数据可适用更广的情况
+	// <a class="sc_q" href="javascript:;" data-link="XXX" data-sign="YYY" data-click="{'button_tp':'cite'}">
+	//String dataLink = getStringBetween(html, "<a class=\"sc_q\" href=\"javascript:;\" data-link=\"", "\" data-sign=\"");
+	//String dataSign = getStringBetween(html, "<a class=\"sc_q\" href=\"javascript:;\" data-link=\""+dataLink+"\" data-sign=\"", "\" data-click=\"{'button_tp':'cite'}\">");
+	// <a class="sc_share" href="javascript:;" data-link="XXX" data-sign="YYY" data-click="{'button_tp':'share'}">
+	String dataLink = getStringBetween(html, "<a class=\"sc_share\" href=\"javascript:;\" data-link=\"", "\" data-sign=\"");
+	String dataSign = getStringBetween(html, "<a class=\"sc_share\" href=\"javascript:;\" data-link=\""+dataLink+"\" data-sign=\"", "\" data-click=\"{'button_tp':'share'}\">");
 	if(dataLink=="" || dataSign=="")
 	{
 		ShowMessage("Failed to obtain bib.");
